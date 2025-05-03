@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ackhalab <ackhalab@student.42.fr>          #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-05-03 15:57:40 by ackhalab          #+#    #+#             */
+/*   Updated: 2025-05-03 15:57:40 by ackhalab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
+
 
 size_t	ft_strlen(char *s)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	if (!s)
@@ -11,6 +24,7 @@ size_t	ft_strlen(char *s)
 		i++;
 	return (i);
 }
+
 void	ft_free(char **p)
 {
 	free(*p);
@@ -19,7 +33,7 @@ void	ft_free(char **p)
 
 char	*ft_strchr(char *s, int c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!s)
@@ -28,7 +42,7 @@ char	*ft_strchr(char *s, int c)
 		return ((char *)&s[ft_strlen(s)]);
 	while (s[i] != '\0')
 	{
-		if (s[i] == (char) c)
+		if (s[i] == (char)c)
 			return ((char *)&s[i]);
 		i++;
 	}
@@ -37,9 +51,9 @@ char	*ft_strchr(char *s, int c)
 
 char	*ft_strjoin(char *line, char *buff)
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	int i;
+	int j;
+	char *str;
 
 	if (!line)
 	{
@@ -51,17 +65,13 @@ char	*ft_strjoin(char *line, char *buff)
 	str = malloc(sizeof(char) * ((ft_strlen(line) + ft_strlen(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
 	if (line)
-		while (line[i] != '\0')
-		{
+		while (line[++i] != '\0')
 			str[i] = line[i];
-			i++;
-		}
 	while (buff[j] != '\0')
 		str[i++] = buff[j++];
 	str[i] = '\0';
-	ft_free(&line);
-	return (str);
+	return (ft_free(&line), str);
 }
